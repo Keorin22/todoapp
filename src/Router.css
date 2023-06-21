@@ -1,0 +1,10 @@
+.Navbar a {
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    margin-right: 20px;
+    background-color: #8bc34a;
+    border-radius: 10px;
+  }
