@@ -1,16 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
 import App from './App';
+import { store } from './store/store'
+import { Provider } from 'react-redux'
+import { createRoot } from 'react-dom/client';
 
-
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
+function AppWithCallbackAfterRender() {
+  return <Provider store={store}>
     <App />
-  </React.StrictMode>
-);
+  </Provider>
+}
 
+const container = document.getElementById('root')
+const root = createRoot(container!)
+root.render(<AppWithCallbackAfterRender />)
 
 

@@ -1,31 +1,37 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { State } from './types'
-
+import { State, Task } from './types'
 const initialState: State = {
   tasks: []
 }
 
-const TaskSslice = createSlice({
+const tasksSlice = createSlice({
     name: 'Tasks',
     initialState,
     reducers:{
         addTask: (
             state: State,
-            action: PayloadAction<string>
+            action: PayloadAction<Task>
     ) => ({
       ...state,
       tasks: [...state.tasks, action.payload],
     }),
     deleteTask: (
         state: State,
-        action: PayloadAction<number>
+        action: PayloadAction<Task>
       ) => {
-        state.tasks.splice(action.payload, 1)
+        state.tasks.splice(action.payload.id, 1)
         
         return state
-      }
+      },
+      completeTask: (
+        state: State,
+        action: PayloadAction<Task>
+      ) => ({
+        ...state,
+        tasks: [...state.tasks, action.payload],
+      }),
     }
 })
 
-export const { addTask, deleteTask} = TaskSslice.actions
-export default TaskSslice.reducer
+export const { addTask, deleteTask, completeTask} = tasksSlice.actions
+export default tasksSlice.reducer

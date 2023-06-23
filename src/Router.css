@@ -1,10 +1,12 @@
 .Navbar a {
-    display: flex;
+    display: inline-block;
+    position: static;
     text-decoration: none;
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    justify-content: left;
     color: #333;
     margin-right: 20px;
+    margin-bottom: 20px;
     background-color: #8bc34a;
     border-radius: 10px;
   }

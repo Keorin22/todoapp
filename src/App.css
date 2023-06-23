@@ -1,97 +1,85 @@
 .App {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 100px auto;
-    margin-top: 0;
-    margin-bottom: 0;
-    /* max-width: auto;
-    max-height: auto; */
-    border: 5px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    background-color: #dbd685;
-  }  
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  h1 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .AddTodo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .AddTodo input {
-    width: 250px;
-    height: 30px;
-    margin-right: 10px;
-    border-radius: 5px;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-  }
-  
-  .AddTodo button {
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .AddTodo button:hover {
-    background-color: #3e8e41;
-  }
-  
-  .TodoList {
-    padding: 0;
-    margin-top: 30px;
-  }
-  
-  .TodoList li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    list-style: none;
-  }
-  
-  .TodoList input[type='checkbox'] {
-    margin-right: 10px;
-    height: 20px;
-    width: 20px;
-  }
-  
-  .TodoList span {
-    font-size: 16px;
-    color: #333;
-  }
-  
-  .TodoList .completed {
-    text-decoration: line-through;
-    color: #ccc;
-  }
-  
-  .TodoList button {
-    background-color: #f44336;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    margin-left: 10px;
-    cursor: pointer;
-  }
-  
-  .TodoList button:hover {
-    background-color: #d32f2f;
-  }
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+body {
+  background-color: rgb(197, 243, 228);
+  min-height: 100vh;
+}
+/* Стили для заголовка */
+h1 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+/* Стили для блока добавления задачи */
+.AddTodo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.AddTodo input[type="text"] {
+  flex-grow: 1;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.AddTodo button {
+  font-size: 16px;
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: none;
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.AddTodo button:hover {
+  background-color: #3e8e41;
+}
+
+/* Стили для списка задач */
+.TodoList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.TodoList li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.TodoList input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.5);
+}
+
+.TodoList span {
+  font-size: 16px;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.TodoList .completed {
+  text-decoration: line-through;
+}
+
+.TodoList button {
+  font-size: 16px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #f44336;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.TodoList button:hover {
+  background-color: #d32f2f;
+}

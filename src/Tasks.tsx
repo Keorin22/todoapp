@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import './App.css';
+import { useAppDispatch } from './utils/appDispatch';
+import { useSelector } from 'react-redux';
+import { tasksSelector } from './store/selector';
+import { Task } from './store/types';
+import { addTask, deleteTask } from './store/slice';
 
-interface Todo {
-  id: number;
-  task: string;
-  completed: boolean;
-}
 
 const Tasks: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const dispatch = useAppDispatch()
+  // const [todos, setTodos] = useState<Todo[]>([]);
+  const todos = useSelector(tasksSelector)
   const [todoInput, setTodoInput] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,30 +22,32 @@ const Tasks: React.FC = () => {
       return;
     }
 
-    const newTodo: Todo = {
+    const newTodo: Task = {
       id: todos.length + 1,
-      task: todoInput,
+      todo: todoInput,
       completed: false,
     };
-
-    setTodos([...todos, newTodo]);
+    dispatch(addTask(newTodo))
+    // setTodos([...todos, newTodo]);
     setTodoInput('');
   };
 
-  const handleToggleCompleted = (id: number) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
+  const handleToggleCompleted = (todo:Task) => {
+    // setTodos(
+    //   todos.map((todo) =>
+    //     todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    //   )
+    // );
   };
 
-  const handleDeleteTodo = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const handleDeleteTodo = (todo:Task) => {
+    // setTodos(todos.filter((todo) => todo.id !== id));
+    dispatch(deleteTask(todo))
   };
 
   return (
-    <div className="App">
+    // <div className="App">
+      <div>
       <h1>Todo App</h1>
       <div className="AddTodo">
         <input type="text" value={todoInput} onChange={handleInputChange} />
@@ -55,12 +59,12 @@ const Tasks: React.FC = () => {
             <input
               type="checkbox"
               checked={todo.completed}
-              onChange={() => handleToggleCompleted(todo.id)}
+              onChange={() => handleToggleCompleted(todo)}
             />
             <span className={todo.completed ? 'completed' : ''}>
-              {todo.task}
+              {todo.todo}
             </span>
-            <button onClick={() => handleDeleteTodo(todo.id)}>Delete</button>
+            <button onClick={() => handleDeleteTodo(todo)}>Delete</button>
           </li>
         ))}
       </ul>

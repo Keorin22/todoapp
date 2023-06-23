@@ -1,3 +1,9 @@
 export interface State {
-    tasks: string[]
+    tasks: Task[]
+  }
+
+  export type Task = {
+    todo: string,
+    completed: boolean,
+    id: number
   }
