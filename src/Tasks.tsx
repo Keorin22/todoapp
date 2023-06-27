@@ -4,7 +4,7 @@ import { useAppDispatch } from './utils/appDispatch';
 import { useSelector } from 'react-redux';
 import { tasksSelector } from './store/selector';
 import { Task } from './store/types';
-import { addTask, deleteTask } from './store/slice';
+import { addTask, changeTodoStatus, completeTask, createTodo, deleteTask, fetchTodos } from './store/slice';
 
 
 const Tasks: React.FC = () => {
@@ -17,27 +17,31 @@ const Tasks: React.FC = () => {
     setTodoInput(event.target.value);
   };
 
+  React.useEffect(() => {
+    dispatch(fetchTodos());
+    // dispatch(fetchTags());
+  }, []);
+  console.log(todos)
   const handleAddTodo = () => {
     if (!todoInput) {
       return;
     }
 
-    const newTodo: Task = {
-      id: todos.length + 1,
-      todo: todoInput,
-      completed: false,
-    };
-    dispatch(addTask(newTodo))
+    // const newTodo: Task = {
+    //   id: todos.length + 1,
+    //   todo: todoInput,
+    //   completed: false,
+    // };
+    // dispatch(addTask(newTodo))
+    dispatch(createTodo({ todo: todoInput, id: (todos.length+1) }))
+    console.log(todoInput)
     // setTodos([...todos, newTodo]);
     setTodoInput('');
   };
 
   const handleToggleCompleted = (todo:Task) => {
-    // setTodos(
-    //   todos.map((todo) =>
-    //     todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    //   )
-    // );
+    // dispatch(completeTask(todo))
+    dispatch(changeTodoStatus({ id: todo.id }))
   };
 
   const handleDeleteTodo = (todo:Task) => {
