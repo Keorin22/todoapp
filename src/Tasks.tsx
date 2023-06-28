@@ -48,7 +48,7 @@ const Tasks: React.FC = () => {
 
   const handleDeleteTodo = async (id: number) => {
     try {
-      const result = useDeleteTaskMutation(id);
+      // const result = useDeleteTaskMutation(id);
       // обработка успешного удаления задачи
     } catch (error) {
       // обработка ошибки при удалении задачи
