@@ -17,37 +17,42 @@ const Tasks: React.FC = () => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTodoInput(event.target.value);
   };
+  const [createTodo, { isLoading }] = taskApi.useCreateTaskMutation();
+  const [updateTodo, { isSuccess }] = taskApi.useUpdateTaskMutation();
+  const [deleteTodo, { isError }] = taskApi.useDeleteTaskMutation();
   const useDeleteTaskMutation = taskApi.endpoints.deleteTask.useMutation;
   // React.useEffect(() => {
-  //   dispatch(fetchTodos());
-  //   // dispatch(fetchTags());
-  // }, todos);
-  console.log(todos)
-  const handleAddTodo = () => {
+  //   
+  // }, []);
+  // console.log(todos)
+  const handleAddTodo = async () => {
     if (!todoInput) {
       return;
     }
 
-    // const newTodo: Task = {
-    //   id: todos.length + 1,
-    //   todo: todoInput,
-    //   completed: false,
-    // };
+    const newTodo: Task = {
+      id: 1,
+      todo: todoInput,
+      completed: false,
+    };
     // dispatch(addTask(newTodo))
     // dispatch(createTodo({ todo: todoInput, id: (todos.length+1) }))
+    await createTodo(newTodo)
     console.log(todoInput)
     // setTodos([...todos, newTodo]);
     setTodoInput('');
   };
 
-  const handleToggleCompleted = (todo:Task) => {
+  const handleToggleCompleted = async (todo:Task) => {
     // dispatch(completeTask(todo))todo
     // dispatch(changeTodoStatus({ id: todo.id }))
     // taskApi.useUpdateTaskMutation(todo)
+    await updateTodo(todo)
   };
 
   const handleDeleteTodo = async (id: number) => {
     try {
+      deleteTodo(id)
       // const result = useDeleteTaskMutation(id);
       // обработка успешного удаления задачи
     } catch (error) {

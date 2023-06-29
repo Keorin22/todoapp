@@ -9,23 +9,23 @@ export const taskApi = createApi({
         query: () => '/tasks',
       }),
       createTask: builder.mutation<Task, Task>({
-        query: (task) => ({
-          url: '/tasks',
+        query: (todo) => ({
+          url: '/create',
           method: 'POST',
-          body: task,
+          body: todo,
         }),
       }),
       updateTask: builder.mutation<Task, Task>({
         query: (task) => ({
-          url: `/tasks/${task.id}`,
-          method: 'PUT',
+          url: `/status`,
+          method: 'PATCH',
           body: task,
         }),
       }),
       deleteTask: builder.mutation<void, number>({
         query: (taskId) => ({
-          url: `/tasks/${taskId}`,
-          method: 'DELETE',
+          url: `/delete/${taskId}`,
+          method: 'delete'
         }),
       }),
     }),
