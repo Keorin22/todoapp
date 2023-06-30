@@ -1,12 +1,25 @@
+/* eslint-disable */
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
-import { Task } from "../store/types";
+import { Task, State } from "../store/types";
+import { createSlice } from "@reduxjs/toolkit";
 
+export const initialState: State = {
+  tasks: []
+}
 export const taskApi = createApi({
     reducerPath: 'taskApi',
+    tagTypes: ['Tasks'],
     baseQuery: fetchBaseQuery({ baseUrl: 'http://192.168.0.42:4444/todos' }),
     endpoints: (builder) => ({
       getTasks: builder.query<Task[], void>({
         query: () => '/tasks',
+        providesTags: (result) => result
+        ? [
+          ...result.map( ({ id }) => ({ type: 'Tasks' as const, id})),
+          { type: 'Tasks', id: 'LIST'},
+        ]
+        : [{type: 'Tasks', id: 'LIST'}]
+      
       }),
       createTask: builder.mutation<Task, Task>({
         query: (todo) => ({
@@ -14,6 +27,7 @@ export const taskApi = createApi({
           method: 'POST',
           body: todo,
         }),
+        invalidatesTags: [{type: 'Tasks', id: 'LIST'}]
       }),
       updateTask: builder.mutation<Task, Task>({
         query: (task) => ({
@@ -21,12 +35,14 @@ export const taskApi = createApi({
           method: 'PATCH',
           body: task,
         }),
+        invalidatesTags: [{type: 'Tasks', id: 'LIST'}]
       }),
       deleteTask: builder.mutation<void, number>({
         query: (taskId) => ({
           url: `/delete/${taskId}`,
           method: 'delete'
         }),
+        invalidatesTags: [{type: 'Tasks', id: 'LIST'}]
       }),
     }),
   });
