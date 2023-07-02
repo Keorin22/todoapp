@@ -3,8 +3,9 @@ import './App.css';
 import { useAppDispatch } from './utils/appDispatch';
 import { useSelector } from 'react-redux';
 import { tasksSelector } from './store/selector';
-import { Task } from './store/types';
+import { StateAuth, Task } from './store/types';
 import { taskApi } from './services/TasksApi';
+import { RootState } from './store/store';
 
 
 const Tasks: React.FC = () => {
@@ -15,6 +16,8 @@ const Tasks: React.FC = () => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTodoInput(event.target.value);
   };
+  const userData = useSelector((state: RootState) => state.auth.data)
+  console.log(userData)
   const [createTodo] = taskApi.useCreateTaskMutation();
   const [updateTodo] = taskApi.useUpdateTaskMutation();
   const [deleteTodo] = taskApi.useDeleteTaskMutation();
@@ -30,6 +33,7 @@ const Tasks: React.FC = () => {
       completed: false,
     };    
     await createTodo(newTodo).unwrap()
+    setIsOpen(false);
     setTodoInput('');
   };
 
@@ -43,17 +47,43 @@ const Tasks: React.FC = () => {
     } catch (error) {
     }
   };
+  const [isOpen, setIsOpen] = useState(false);
+  const showPopup = () => {
+    setIsOpen(true);
+  };
+
+  const hidePopup = () => {
+    setIsOpen(false);
+    setTodoInput('');
+  };
 
   return (
       <div>
       <h1>Todo App</h1>
-      <div className="AddTodo">
+      <button onClick={showPopup} className='AddTodo'>Добавить Задачу</button>
+
+      {isOpen && (
+        <div className="popup-container">
+          {/* <div className="overlay"> */}
+          <input
+            type="text"
+            value={todoInput}
+            onChange={e => setTodoInput(e.target.value)}
+            placeholder="Введите todo"
+          />
+          <button onClick={handleAddTodo}>Добавить</button>
+          <button onClick={hidePopup}>Отмена</button>
+        </div>
+        // </div>
+      )}
+
+      {/* <div className="AddTodo">
         <input type="text" value={todoInput} onChange={handleInputChange} />
         <button onClick={handleAddTodo}>Add Todo</button>
-      </div>
+      </div> */}
       <ul className="TodoList">
         {todos && todos.map((todo) => (
-          <li key={todo.id}>
+          !todo.completed && (<li key={todo.id} className='test'>
             <input
               type="checkbox"
               checked={todo.completed}
@@ -64,6 +94,8 @@ const Tasks: React.FC = () => {
             </span>
             <button onClick={() => handleDeleteTodo(todo.id)}>Delete</button>
           </li>
+          )
+        
         ))}
       </ul>
     </div>

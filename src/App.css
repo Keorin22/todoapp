@@ -7,6 +7,16 @@ body {
   background-color: rgb(197, 243, 228);
   min-height: 100vh;
 }
+.App li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 4rem;
+  border-width: 2px;
+  border-radius: 5px;
+  background-color: rgb(209, 230, 115);
+  border: 2px solid rgb(230, 133, 115);
+}
 /* Стили для заголовка */
 h1 {
   text-align: center;
@@ -19,9 +29,15 @@ h1 {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: large;
+  
 }
 
-.AddTodo input[type="text"] {
+/* .AddTodo input[type="text"] {
   flex-grow: 1;
   font-size: 16px;
   padding: 10px;
@@ -36,24 +52,35 @@ h1 {
   color: #fff;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-}
+} */
 
-.AddTodo button:hover {
+/* .AddTodo button:hover {
   background-color: #3e8e41;
-}
+} */
 
 /* Стили для списка задач */
 .TodoList {
   list-style: none;
   margin: 0;
   padding: 0;
+  border-width: 2px red;
+  
 }
 
-.TodoList li {
+/* .TodoList li {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-}
+  font-size: large;
+} */
+/* .test {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: large;
+  border: 20px #f44336;
+  border-width: 2px;
+} */
 
 .TodoList input[type="checkbox"] {
   margin-right: 10px;
@@ -61,9 +88,10 @@ h1 {
 }
 
 .TodoList span {
-  font-size: 16px;
+  font-size: 20px;
+  font-family: 'Times New Roman', Times, serif;
   flex-grow: 1;
-  margin-right: 10px;
+  margin-right: 10px;  
 }
 
 .TodoList .completed {
@@ -83,3 +111,22 @@ h1 {
 .TodoList button:hover {
   background-color: #d32f2f;
 }
+
+.container {
+  text-align: center;
+}
+
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px rgb(230, 133, 115) solid;
+}
+

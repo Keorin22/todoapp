@@ -3,13 +3,24 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import { Task, State } from "../store/types";
 import { createSlice } from "@reduxjs/toolkit";
 
-export const initialState: State = {
-  tasks: []
-}
+const getAccessToken = () => {  
+  return window.localStorage.getItem('token')
+};
+
 export const taskApi = createApi({
     reducerPath: 'taskApi',
     tagTypes: ['Tasks'],
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://192.168.0.42:4444/todos' }),
+    baseQuery: fetchBaseQuery({ 
+      baseUrl: 'http://localhost:4444/todos',
+      prepareHeaders: (headers, { getState }) => {
+        const token = getAccessToken();
+        console.log(token)
+        if (token) {
+          headers.set('Authorization', `Bearer ${token}`);
+        }
+        return headers;
+      },
+    }),
     endpoints: (builder) => ({
       getTasks: builder.query<Task[], void>({
         query: () => '/tasks',
