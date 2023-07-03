@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Task } from './store/types';
 import { taskApi } from './services/TasksApi';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { RootState } from './store/store';
 
 
 
@@ -10,6 +13,10 @@ const CompleteTasks: React.FC = () => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTodoInput(event.target.value);
   };
+  // const isAuth = useSelector((state: RootState) => state.auth.isAuth)
+  // if (!isAuth) {
+  //   return <Navigate to="/" />;
+  // }
   const [createTodo] = taskApi.useCreateTaskMutation();
   const [updateTodo] = taskApi.useUpdateTaskMutation();
   const [deleteTodo] = taskApi.useDeleteTaskMutation();
@@ -39,6 +46,7 @@ const CompleteTasks: React.FC = () => {
     } catch (error) {
     }
   };
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isOpen, setIsOpen] = useState(false);
   const showPopup = () => {
     setIsOpen(true);

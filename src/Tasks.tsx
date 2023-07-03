@@ -4,8 +4,9 @@ import { useAppDispatch } from './utils/appDispatch';
 import { useSelector } from 'react-redux';
 import { tasksSelector } from './store/selector';
 import { StateAuth, Task } from './store/types';
-import { taskApi } from './services/TasksApi';
+import { getAccessToken, taskApi } from './services/TasksApi';
 import { RootState } from './store/store';
+import { Navigate } from 'react-router-dom';
 
 
 const Tasks: React.FC = () => {
@@ -13,15 +14,17 @@ const Tasks: React.FC = () => {
 
   const [todoInput, setTodoInput] = useState('');
   const {data: todos} = taskApi.useGetTasksQuery()
+  
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTodoInput(event.target.value);
-  };
-  const userData = useSelector((state: RootState) => state.auth.data)
-  console.log(userData)
+  }; 
+  // const isAuth = useSelector((state: RootState) => state.auth.isAuth)
+  // if (!isAuth) {
+  //   return <Navigate to="/" />;
+  // }
   const [createTodo] = taskApi.useCreateTaskMutation();
   const [updateTodo] = taskApi.useUpdateTaskMutation();
   const [deleteTodo] = taskApi.useDeleteTaskMutation();
-  const useDeleteTaskMutation = taskApi.endpoints.deleteTask.useMutation;
   const handleAddTodo = async () => {
     if (!todoInput) {
       return;
@@ -47,6 +50,7 @@ const Tasks: React.FC = () => {
     } catch (error) {
     }
   };
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isOpen, setIsOpen] = useState(false);
   const showPopup = () => {
     setIsOpen(true);

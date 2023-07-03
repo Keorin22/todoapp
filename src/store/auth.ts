@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AuthData, StateAuth, FormValues } from './types';
 
 export const fetchAuth = createAsyncThunk('auth/fetchAuth', async ({ email, password }: { email: string, password:string })  => {
-  const { data } = await axios.post('http://localhost:4444/auth/login', { email, password });
+  const { data } = await axios.post('http://192.168.0.42:4444/auth/login', { email, password });
   console.log(data)
   return data;
 });
@@ -32,11 +32,16 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.auth.data = null;
+      state.isAuth = false
     },
     isAuth: (state) => {
         if(state.auth.data !== null)
         state.isAuth = true
       },
+    checkToken: (state, action) => {
+      state.auth.data = action.payload
+      state.isAuth = true
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -93,4 +98,4 @@ const authSlice = createSlice({
 
 export const { reducer: authReducer }= authSlice;
 
-export const { logout } = authSlice.actions;
+export const { logout, checkToken } = authSlice.actions;

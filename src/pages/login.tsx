@@ -38,15 +38,15 @@ const LoginPage = () => {
 
 
 if (isAuth) {
-  return <Navigate to="/" />;
+  return <Navigate to="/tasks" />;
 }
 
   return (
     <div>
-      <h1>Login Page</h1>
-      
+      <h1>Авторизуйтесь</h1>
+      <form>
         <div>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Login:</label>
           <input
             type="email"
             id="email"
@@ -66,6 +66,7 @@ if (isAuth) {
           />
         </div>
         <button onClick={ () => handleSubmit(formValues)}>Login</button>
+        </form>
       
     </div>
   );

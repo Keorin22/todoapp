@@ -3,7 +3,7 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import { Task, State } from "../store/types";
 import { createSlice } from "@reduxjs/toolkit";
 
-const getAccessToken = () => {  
+export const getAccessToken = () => {  
   return window.localStorage.getItem('token')
 };
 
@@ -11,7 +11,7 @@ export const taskApi = createApi({
     reducerPath: 'taskApi',
     tagTypes: ['Tasks'],
     baseQuery: fetchBaseQuery({ 
-      baseUrl: 'http://localhost:4444/todos',
+      baseUrl: 'http://192.168.0.42:4444/todos',
       prepareHeaders: (headers, { getState }) => {
         const token = getAccessToken();
         console.log(token)

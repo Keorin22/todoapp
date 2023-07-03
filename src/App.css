@@ -7,6 +7,10 @@ body {
   background-color: rgb(197, 243, 228);
   min-height: 100vh;
 }
+li {
+  max-width: 700px;
+  word-wrap: break-word;
+}
 .App li {
   display: flex;
   align-items: center;
@@ -16,6 +20,7 @@ body {
   border-radius: 5px;
   background-color: rgb(209, 230, 115);
   border: 2px solid rgb(230, 133, 115);
+  
 }
 /* Стили для заголовка */
 h1 {
@@ -128,5 +133,8 @@ h1 {
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
   border: 2px rgb(230, 133, 115) solid;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+
 }
 
