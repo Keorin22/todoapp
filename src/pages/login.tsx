@@ -5,6 +5,7 @@ import { FormValues, StateAuth } from '../store/types';
 import { useAppDispatch } from '../utils/appDispatch';
 import { Navigate } from 'react-router-dom';
 import { RootState } from '../store/store';
+import 'tailwindcss/tailwind.css'
 
 
 const LoginPage = () => {

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './App.css';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from './utils/appDispatch';
 import { useSelector } from 'react-redux';
 import { tasksSelector } from './store/selector';
@@ -11,7 +11,7 @@ import { Navigate } from 'react-router-dom';
 
 const Tasks: React.FC = () => {
   const dispatch = useAppDispatch()
-
+  const inputRef = useRef<HTMLInputElement>(null)
   const [todoInput, setTodoInput] = useState('');
   const {data: todos} = taskApi.useGetTasksQuery()
   
@@ -60,24 +60,33 @@ const Tasks: React.FC = () => {
     setIsOpen(false);
     setTodoInput('');
   };
-
+  useEffect(() =>{    
+    if(inputRef.current && isOpen){
+      inputRef.current.focus()
+    }
+  }, )
   return (
-      <div>
+      <div className="bg-blue-500">
       <h1>Todo App</h1>
-      <button onClick={showPopup} className='AddTodo'>Добавить Задачу</button>
+      <button onClick={showPopup} >Добавить Задачу</button>
 
       {isOpen && (
-        <div className="popup-container">
+        <form>
+
+        
+        <div >
           {/* <div className="overlay"> */}
           <input
             type="text"
             value={todoInput}
             onChange={e => setTodoInput(e.target.value)}
             placeholder="Введите todo"
+            ref={inputRef}
           />
           <button onClick={handleAddTodo}>Добавить</button>
           <button onClick={hidePopup}>Отмена</button>
         </div>
+        </form>
         // </div>
       )}
 
@@ -85,7 +94,7 @@ const Tasks: React.FC = () => {
         <input type="text" value={todoInput} onChange={handleInputChange} />
         <button onClick={handleAddTodo}>Add Todo</button>
       </div> */}
-      <ul className="TodoList">
+      <ul>
         {todos && todos.map((todo) => (
           !todo.completed && (<li key={todo.id} className='test'>
             <input

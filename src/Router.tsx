@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import Tasks from './Tasks';
 import CompleteTasks from './CompleteTasks';
-import './Router.css';
 import LoginPage from './pages/login';
 import { RootState } from './store/store';
 import { useSelector } from 'react-redux';
 import { getAccessToken } from './services/TasksApi';
 import { checkToken, logout } from './store/auth';
 import { useAppDispatch } from './utils/appDispatch';
+import Logout from './pages/logout';
 
 const AppRouter: React.FC = () => {
   const isAuth = useSelector((state: RootState) => state.auth.isAuth)
@@ -23,13 +23,11 @@ const AppRouter: React.FC = () => {
       
     }  
   return (
-    <div className="Navbar">
+    <div>
       <Router>
        {isAuth ?
-      <><nav>
-            <Link to="/tasks">Tasks</Link>
-            <Link to="/completetasks">Completed Tasks</Link>
-          </nav><button onClick={()=> logoutHandler()}> logout</button></>
+     
+            <><Link to="/tasks">Tasks</Link><Link to="/completetasks">Completed Tasks</Link><Link to="logout">Выход</Link></>
       : <Navigate to="/" />
         
       }
@@ -38,6 +36,7 @@ const AppRouter: React.FC = () => {
       <Routes>
         <Route path='/' element= {<LoginPage/>} /> 
         <Route path="/tasks" element={<Tasks />} />        
+        <Route path="/logout" element={<Logout />} />    
         <Route path="/completetasks" element={<CompleteTasks />} />
         
       </Routes>
