@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AuthData, StateAuth, FormValues } from './types';
 
 export const fetchAuth = createAsyncThunk('auth/fetchAuth', async ({ email, password }: { email: string, password:string })  => {
-  const { data } = await axios.post('http://192.168.0.42:4444/auth/login', { email, password });
+  const { data } = await axios.post('http://localhost:4444/auth/login', { email, password });
   console.log(data)
   return data;
 });

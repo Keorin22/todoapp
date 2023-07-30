@@ -8,7 +8,7 @@ import { RootState } from '../store/store';
 
 
 
-const LoginPage = () => {
+const MyProfile = () => {
   const [formValues, setFormValues] = useState<FormValues>({ email: '', password: '' });
   const dispatch = useAppDispatch()
   // const auth = useSelector(authReducer)
@@ -39,38 +39,14 @@ const LoginPage = () => {
 
 
 if (isAuth) {
-  return <Navigate to="/tasks" />;
+  return <Navigate to="/MyProfile" />;
 }
 
   return (
     <div>
-      <h1>Авторизуйтесь</h1>
-      <form>
-        <div>
-          <label htmlFor="email">Login:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formValues.email}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formValues.password}
-            onChange={handleChange}
-          />
-        </div>
-        <button onClick={ () => handleSubmit(formValues)}>Login</button>
-        </form>
-      
+     <h1>Профиль</h1> 
     </div>
   );
 };
 
-export default LoginPage;
+export default MyProfile;

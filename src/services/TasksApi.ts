@@ -11,7 +11,7 @@ export const taskApi = createApi({
     reducerPath: 'taskApi',
     tagTypes: ['Tasks'],
     baseQuery: fetchBaseQuery({ 
-      baseUrl: 'http://192.168.0.42:4444/todos',
+      baseUrl: 'http://localhost:4444/todos',
       prepareHeaders: (headers, { getState }) => {
         const token = getAccessToken();
         console.log(token)

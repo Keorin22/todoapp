@@ -5,7 +5,7 @@ export interface State {
   export type Task = {
     todo: string,
     completed: boolean,
-    id: number
+    id?: number
   }
   export type AuthData = {
     login: string,

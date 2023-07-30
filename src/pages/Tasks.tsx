@@ -1,33 +1,30 @@
-import React, { useState } from 'react';
-import { Task } from './store/types';
-import { taskApi } from './services/TasksApi';
-import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import { RootState } from './store/store';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useRef, useState } from 'react';
+import { useAppDispatch } from '../utils/appDispatch';
+import { Task } from '../store/types';
+import { taskApi } from '../services/TasksApi';
 
 
-
-const CompleteTasks: React.FC = () => {
+const Tasks: React.FC = () => {
+  const dispatch = useAppDispatch()
+  const inputRef = useRef<HTMLInputElement>(null)
   const [todoInput, setTodoInput] = useState('');
   const {data: todos} = taskApi.useGetTasksQuery()
+  
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTodoInput(event.target.value);
-  };
-  // const isAuth = useSelector((state: RootState) => state.auth.isAuth)
-  // if (!isAuth) {
-  //   return <Navigate to="/" />;
-  // }
+  }; 
+ 
   const [createTodo] = taskApi.useCreateTaskMutation();
   const [updateTodo] = taskApi.useUpdateTaskMutation();
   const [deleteTodo] = taskApi.useDeleteTaskMutation();
-  const useDeleteTaskMutation = taskApi.endpoints.deleteTask.useMutation;
   const handleAddTodo = async () => {
     if (!todoInput) {
       return;
     }
 
     const newTodo: Task = {
-      id: 1,
+      // id: 1,
       todo: todoInput,
       completed: false,
     };    
@@ -56,13 +53,38 @@ const CompleteTasks: React.FC = () => {
     setIsOpen(false);
     setTodoInput('');
   };
-
+  useEffect(() =>{    
+    if(inputRef.current && isOpen){
+      inputRef.current.focus()
+    }
+  }, )
   return (
-    <div className="CompleteTasks">
-      Выполненные задачи
-      <ul className="TodoList">
+      <div className="bg-blue-500">
+      <h1>Todo App</h1>
+      <button onClick={showPopup} >Добавить Задачу</button>
+
+      {isOpen && (
+        <form>
+
+        
+        <div >          
+          <input
+            type="text"
+            value={todoInput}
+            onChange={e => setTodoInput(e.target.value)}
+            placeholder="Введите todo"
+            ref={inputRef}
+          />
+          <button onClick={handleAddTodo}>Добавить</button>
+          <button onClick={hidePopup}>Отмена</button>
+        </div>
+        </form>       
+      )}
+
+
+      <ul>
         {todos && todos.map((todo) => (
-          todo.completed && (<li key={todo.id} className='test'>
+          !todo.completed && (<li key={todo.id || 0} className='test'>
             <input
               type="checkbox"
               checked={todo.completed}
@@ -71,14 +93,14 @@ const CompleteTasks: React.FC = () => {
             <span className={todo.completed ? 'completed' : ''}>
               {todo.todo}
             </span>
-            <button onClick={() => handleDeleteTodo(todo.id)}>Delete</button>
+            <button onClick={() =>  handleDeleteTodo(todo.id as number)}>Delete</button>
           </li>
           )
         
         ))}
       </ul>
     </div>
-  )
+  );
 }
 
-export default CompleteTasks;
+export default Tasks;
