@@ -55,15 +55,16 @@ const CompleteTasks: React.FC = () => {
   };
 
   return (
-    <div className="CompleteTasks">
+    <div >
       Выполненные задачи
-      <ul className="TodoList">
+      <ul >
         {todos && todos.map((todo) => (
           todo.completed && (<li key={todo.id} className='test'>
             <input
               type="checkbox"
               checked={todo.completed}
               onChange={() => handleToggleCompleted(todo)}
+              className='todoInput'
             />
             <span className={todo.completed ? 'completed' : ''}>
               {todo.todo}

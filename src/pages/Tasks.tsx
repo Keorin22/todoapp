@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from '../utils/appDispatch';
 import { Task } from '../store/types';
 import { taskApi } from '../services/TasksApi';
-
+import '../App.css'
 
 const Tasks: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -59,7 +59,7 @@ const Tasks: React.FC = () => {
     }
   }, )
   return (
-      <div className="bg-blue-500">
+      <div className='Task'>
       <h1>Todo App</h1>
       <button onClick={showPopup} >Добавить Задачу</button>
 
@@ -84,7 +84,7 @@ const Tasks: React.FC = () => {
 
       <ul>
         {todos && todos.map((todo) => (
-          !todo.completed && (<li key={todo.id || 0} className='test'>
+          !todo.completed && (<li key={todo.id || 0}>
             <input
               type="checkbox"
               checked={todo.completed}

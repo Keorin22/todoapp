@@ -1,12 +1,9 @@
 .Navbar {
-    display: inline-block;
-    position: static;
-    text-decoration: none;
-    align-items: left;
-    justify-content: left;
+    display:inline-table;
     color: #333;
     margin-right: 20px;
     margin-bottom: 20px;
     background-color: #8bc34a;
     border-radius: 10px;
   }
+ 

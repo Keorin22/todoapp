@@ -1,5 +1,24 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+.App {
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+}
+body {
+    background-color: beige;
+    
+}
+.Task {
+    
+    padding: 3px;
+
+}
+.Task ul {
+    border: 2px solid blue;
+    padding-top: 5px;
+}
+.Task li {
+    margin-top: 3px;
+}
+.Task button {
+    
+}

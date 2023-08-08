@@ -25,7 +25,7 @@ const AppRouter: React.FC = () => {
       
     }  
   return (
-    <div>
+    <header>
       <Router>
        {isAuth ?
      
@@ -49,7 +49,7 @@ const AppRouter: React.FC = () => {
         
       </Routes>
     </Router>
-    </div>
+    </header>
     
   );
 };
